@@ -21,3 +21,8 @@ spring:
       filter:
         enabled: true
 
+clothes_shop:
+  default.admin.pass: ${DEFAULT_ADMIN_PASS:Test}
+  remember.me.key: ${REMEMBER_ME_KEY:secret}
+
+
