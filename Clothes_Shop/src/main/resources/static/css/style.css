@@ -129,3 +129,51 @@ h3.ico4 { background-image:url(images/ico4.gif);}
 #footer a{ color:#7b7b7b; text-decoration: none;}
 #footer a:hover{ color:#000;}
 #footer span{ padding:0 2px;}
+
+/* Стил за навигационния елемент */
+.nav-item {
+	margin: 10px 0; /* Малък марж отгоре и отдолу */
+}
+
+/* Стил за форма с inline дисплей */
+.form-inline {
+	display: flex; /* Прави формата линия */
+	justify-content: space-between; /* Пространство между елементите */
+	align-items: center; /* Центрира елементите по вертикала */
+}
+
+/* Стил за logged-user */
+.logged-user {
+	font-weight: bold; /* Прави текста удебелен */
+	color: #333; /* Тъмно сив текст */
+	margin-right: 10px; /* Отстояние от десния ръб */
+}
+
+/* Стил за бутон за logout */
+.btn.btn-link {
+	background-color: transparent; /* Без фон */
+	color: #007bff; /* Син текст */
+	border: none; /* Без рамка */
+	text-decoration: underline; /* Подчертаване на текста */
+	cursor: pointer; /* Курсор като ръка при задържане */
+}
+
+.btn.btn-link:hover {
+	color: #0056b3; /* Тъмносин цвят при задържане на мишката */
+}
+
+/* Допълнителен стил за padding и border */
+.border {
+	border: 1px solid #ddd; /* Сива рамка */
+	border-radius: 5px; /* Закръглени ъгли */
+}
+
+.px-3 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+	.logged-user {
+		margin-bottom: 10px; /* Малък марж отдолу */
+	}
+
