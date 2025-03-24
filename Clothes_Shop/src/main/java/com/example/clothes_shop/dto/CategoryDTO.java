@@ -1,10 +1,14 @@
 package com.example.clothes_shop.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
 public class CategoryDTO {
 
     private Long id;
+
+    @NotBlank
     private String name;
     private boolean isActive;
     private List<ProductDTO> products;
