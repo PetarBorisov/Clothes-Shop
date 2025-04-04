@@ -12,7 +12,7 @@ public class CategoryEditDTO {
     @NotBlank
     private String name;
     private boolean isActive;
-    private List<ProductDTO> products;
+    private List<ProductAddDTO> products;
 
     public CategoryEditDTO() {
     }
@@ -48,11 +48,11 @@ public class CategoryEditDTO {
         this.isActive = active;
     }
 
-    public List<ProductDTO> getProducts() {
+    public List<ProductAddDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductDTO> products) {
+    public void setProducts(List<ProductAddDTO> products) {
         this.products = products;
     }
 }
