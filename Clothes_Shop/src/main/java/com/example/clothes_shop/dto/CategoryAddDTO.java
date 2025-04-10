@@ -7,12 +7,14 @@ import java.util.List;
 
 public class CategoryAddDTO {
 
-    @NotNull
+
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Category name cannot be empty")
     private String name;
+
     private boolean isActive;
+
     private List<ProductAddDTO> products;
 
     public CategoryAddDTO() {
@@ -42,11 +44,11 @@ public class CategoryAddDTO {
     }
 
     public boolean isActive() {
-        return this.isActive;
+        return isActive;
     }
 
     public void setActive(boolean active) {
-        this.isActive = active;
+        isActive = active;
     }
 
     public List<ProductAddDTO> getProducts() {
