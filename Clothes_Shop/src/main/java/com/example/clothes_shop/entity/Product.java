@@ -12,6 +12,9 @@ public class Product extends BaseEntity{
     @Column(nullable = false)
     private String description;
 
+    @Column
+    private String photo;
+
     @Column(nullable = false)
     private Double price;
 
@@ -22,12 +25,13 @@ public class Product extends BaseEntity{
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    public Product(String name, String description, Double price, Integer quantity, Category category) {
+    public Product(String name, String description,String photo, Double price, Integer quantity, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+        this.photo = photo;
     }
 
     public Product() {
@@ -71,5 +75,13 @@ public class Product extends BaseEntity{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
