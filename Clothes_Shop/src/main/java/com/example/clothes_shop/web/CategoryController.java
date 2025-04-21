@@ -1,6 +1,7 @@
 package com.example.clothes_shop.web;
 
 import com.example.clothes_shop.dto.CategoryAddDTO;
+import com.example.clothes_shop.dto.CategoryEditDTO;
 import com.example.clothes_shop.entity.Category;
 import com.example.clothes_shop.service.CategoryService;
 import jakarta.validation.Valid;
@@ -25,10 +26,9 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public String showCategoryForm(Model model) {
-        model.addAttribute("categoryAddDTO", new CategoryAddDTO());
-        model.addAttribute("categories", categoryService.getAllCategory());
-        return "index";
-
+        model.addAttribute("categoryAddDTO", new CategoryAddDTO());  // Създаваш нов обект CategoryAddDTO
+        model.addAttribute("categories", categoryService.getAllCategory());  // Показваш всички категории
+        return "index";  // Показваш основната страница
     }
 
     @PostMapping("/categories")
@@ -38,15 +38,51 @@ public class CategoryController {
 
         if (result.hasErrors()) {
             model.addAttribute("categories", categoryService.getAllCategory());
-            return "index";
+            return "index";  // Връщаме обратно с грешките
         }
 
+        // Добавяме новата категория
         categoryService.addCategory(categoryAddDTO);
-        return "redirect:/categories";
+        return "redirect:/categories";  // След добавяне, пренасочваме към списъка с категории
+    }
+
+    @GetMapping("/edit/category/{id}")
+    public String editCategoryForm(@PathVariable Long id, Model model) {
+        CategoryEditDTO categoryEditDTO = categoryService.getCategoryEditDTOById(id);
+
+        if (categoryEditDTO != null) {
+            model.addAttribute("categoryAddDTO", categoryEditDTO); // Връщаш categoryEditDTO за редактиране
+        }
+
+        model.addAttribute("categories", categoryService.getAllCategory()); // Показваш всички категории
+        return "index";  // Показваш основната страница
+    }
+    @PostMapping("/edit/category/{id}")
+    public String updateCategory(@PathVariable Long id,
+                                 @ModelAttribute("categoryAddDTO") @Valid CategoryAddDTO categoryAddDTO,
+                                 BindingResult result,
+                                 Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAllCategory());
+            return "index";  // Връщаш се към същата страница с грешките
+        }
+
+        // Създаваш нов CategoryEditDTO, за да обновиш съществуващата категория
+        CategoryEditDTO categoryEditDTO = new CategoryEditDTO();
+        categoryEditDTO.setId(id);
+        categoryEditDTO.setName(categoryAddDTO.getName());
+        categoryEditDTO.setActive(categoryAddDTO.isActive());
+
+        // Редактираш категорията
+        categoryService.editCategory(id, categoryEditDTO);
+
+        return "redirect:/categories";  // Пренасочваш към страницата със списъка с категории
     }
     @PostMapping("/delete/category/{id}")
     public String deleteCategory(@PathVariable Long id) {
+        // Изтриваме категорията по ID
         categoryService.deleteCategory(id);
-        return "redirect:/categories";
+        return "redirect:/categories";  // Пренасочваме към списъка с категории
     }
 }
