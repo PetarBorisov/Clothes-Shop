@@ -26,9 +26,9 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public String showCategoryForm(Model model) {
-        model.addAttribute("categoryAddDTO", new CategoryAddDTO());  // Създаваш нов обект CategoryAddDTO
-        model.addAttribute("categories", categoryService.getAllCategory());  // Показваш всички категории
-        return "index";  // Показваш основната страница
+        model.addAttribute("categoryAddDTO", new CategoryAddDTO()); // важно!
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "index";
     }
 
     @PostMapping("/categories")
@@ -38,15 +38,16 @@ public class CategoryController {
 
         if (result.hasErrors()) {
             model.addAttribute("categories", categoryService.getAllCategory());
-            return "index";  // Връщаме обратно с грешките
+            // това Е ВАЖНО, ако се загуби валидационният обект при грешка
+            model.addAttribute("categoryAddDTO", categoryAddDTO);
+            return "index";
         }
 
-        // Добавяме новата категория
         categoryService.addCategory(categoryAddDTO);
-        return "redirect:/categories";  // След добавяне, пренасочваме към списъка с категории
+        return "redirect:/categories";
     }
 
-    @GetMapping("/edit/category/{id}")
+  /*  @GetMapping("/edit/category/{id}")
     public String editCategoryForm(@PathVariable Long id, Model model) {
         CategoryEditDTO categoryEditDTO = categoryService.getCategoryEditDTOById(id);
 
@@ -56,8 +57,8 @@ public class CategoryController {
 
         model.addAttribute("categories", categoryService.getAllCategory()); // Показваш всички категории
         return "index";  // Показваш основната страница
-    }
-    @PostMapping("/edit/category/{id}")
+    }*/
+  /*  @PostMapping("/edit/category/{id}")
     public String updateCategory(@PathVariable Long id,
                                  @ModelAttribute("categoryAddDTO") @Valid CategoryAddDTO categoryAddDTO,
                                  BindingResult result,
@@ -78,7 +79,7 @@ public class CategoryController {
         categoryService.editCategory(id, categoryEditDTO);
 
         return "redirect:/categories";  // Пренасочваш към страницата със списъка с категории
-    }
+    }*/
     @PostMapping("/delete/category/{id}")
     public String deleteCategory(@PathVariable Long id) {
         // Изтриваме категорията по ID
