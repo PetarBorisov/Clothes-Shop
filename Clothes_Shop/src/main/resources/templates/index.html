@@ -11,6 +11,10 @@
 <nav th:replace="~{fragments/navbar}">
 
 </nav>
+
+
+
+</div>
 <!-- Shell -->
 <div class="shell">
 
@@ -102,28 +106,61 @@
         </div>
       </div>
       <!-- End Search -->
-      <!-- Categories -->
-      <div class="box categories">
-        <h2>Categories <span></span></h2>
-        <div class="box-content">
-          <ul>
-            <li><a href="#">Category 1</a></li>
-            <li><a href="#">Category 2</a></li>
-            <li><a href="#">Category 3</a></li>
-            <li><a href="#">Category 4</a></li>
-            <li><a href="#">Category 5</a></li>
-            <li><a href="#">Category 6</a></li>
-            <li><a href="#">Category 7</a></li>
-            <li><a href="#">Category 8</a></li>
-            <li><a href="#">Category 9</a></li>
-            <li><a href="#">Category 10</a></li>
-            <li><a href="#">Category 11</a></li>
-            <li><a href="#">Category 12</a></li>
-            <li class="last"><a href="#">Category 13</a></li>
-          </ul>
-        </div>
+      <!-- Таблица с категории -->
+      <div class="box">
+        <h2>Управление на категории</h2>
+
+        <!-- Форма за добавяне на нова категория -->
+        <form th:action="@{/categories}" th:object="${categoryAddDTO}" method="post">
+          <label th:for="*{name}">Name:</label>
+          <input type="text" th:field="*{name}" />
+
+          <label th:for="active">Active:</label>
+          <input type="checkbox" th:field="*{active}" />
+
+          <button type="submit">Submit</button>
+        </form>
+
+        <!-- Показване на съществуващите категории -->
+        <table>
+          <thead>
+          <tr>
+            <th>Име</th>
+            <th>Активна</th>
+            <th>Действия</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="category : ${categories}">
+            <td th:text="${category.name}">Име</td>
+            <td th:text="${category.active ? 'Да' : 'Не'}">Активна</td>
+            <td>
+              <a th:href="@{/edit/category/{id}(id=${category.id})}">Редактирай</a>
+              <form th:action="@{/delete/category/{id}(id=${category.id})}" method="post" style="display:inline;">
+                <button type="submit">Изтрий</button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <!-- Бутон за добавяне на категория, ако имаш друга страница -->
+        <a th:href="@{/add/category}" class="btn btn-success">Добави категория</a>
+        <table border="1">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Име</th>
+            <th>Активна</th>
+            <th>Действия</th>
+          </tr>
+          </thead>
+          <tbody>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- End Categories -->
     </div>
     <!-- End Sidebar -->
     <div class="cl">&nbsp;</div>
@@ -188,6 +225,7 @@
     </div>
     <!-- End Text Cols -->
   </div>
+
   <!-- End Side Full -->
   <!-- Footer -->
   <div id="footer">
