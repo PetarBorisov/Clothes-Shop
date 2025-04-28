@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public class CategoryEditDTO {
-    @NotNull
+
     private Long id;
 
     @NotBlank
