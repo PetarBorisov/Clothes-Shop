@@ -17,15 +17,7 @@ public class CategoryAddDTO {
 
     private List<ProductAddDTO> products;
 
-    public CategoryAddDTO() {
-    }
 
-    public CategoryAddDTO(Long id, String name, boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.isActive = isActive;
-
-    }
 
     public Long getId() {
         return id;
