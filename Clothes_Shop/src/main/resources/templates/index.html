@@ -110,16 +110,6 @@
       <div class="box">
         <h2>Управление на категории</h2>
 
-        <!-- Форма за добавяне на нова категория -->
-        <form th:action="@{/categories}" th:object="${categoryAddDTO}" method="post">
-          <label th:for="*{name}">Name:</label>
-          <input type="text" th:field="*{name}" />
-
-          <label th:for="active">Active:</label>
-          <input type="checkbox" th:field="*{active}" />
-
-          <button type="submit">Submit</button>
-        </form>
 
         <!-- Показване на съществуващите категории -->
         <table>
@@ -131,28 +121,22 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="category : ${categories}">
-            <td th:text="${category.name}">Име</td>
-            <td th:text="${category.active ? 'Да' : 'Не'}">Активна</td>
+          <tr th:each="category : ${myCategories}">
+            <td th:text="${category.name}">Име на категория</td>
+            <td th:text="${category.active ? 'Да' : 'Не'}">Активна?</td>
             <td>
-              <a th:href="@{/edit/category/{id}(id=${category.id})}">Редактирай</a>
-              <form th:action="@{/delete/category/{id}(id=${category.id})}" method="post" style="display:inline;">
-                <button type="submit">Изтрий</button>
-              </form>
+              <!-- Ако искаш може бутон за изтриване или редакция тук -->
             </td>
           </tr>
           </tbody>
         </table>
 
         <!-- Бутон за добавяне на категория, ако имаш друга страница -->
-        <a th:href="@{/add/category}" class="btn btn-success">Добави категория</a>
+        <a th:href="@{/add/categories}" class="btn btn-success">Добави категория</a>
         <table border="1">
           <thead>
           <tr>
-            <th>ID</th>
             <th>Име</th>
-            <th>Активна</th>
-            <th>Действия</th>
           </tr>
           </thead>
           <tbody>
