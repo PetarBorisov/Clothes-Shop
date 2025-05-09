@@ -24,13 +24,14 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/add/categories")
     public ModelAndView showCategories(Model model) {
         List<Category> myCategories = categoryService.getAllCategory();
         model.addAttribute("myCategories", myCategories);
         model.addAttribute("categoryAddDTO", new CategoryAddDTO()); // За формата за добавяне
-        return new ModelAndView("categories"); // Показваме страницата categories.html
+        return new ModelAndView("add_categories"); // Показваме страницата categories.html
     }
+
 
     @PostMapping("/add/categories")
     public String addCategory(@ModelAttribute("categoryAddDTO") @Valid CategoryAddDTO categoryAddDTO,
@@ -40,16 +41,16 @@ public class CategoryController {
             // Ако има грешки, презареждаме списъка и връщаме categories.html
             List<Category> myCategories = categoryService.getAllCategory();
             model.addAttribute("myCategories", myCategories);
-            return "categories";
+            return "add_categories";
         }
 
         categoryService.addCategory(categoryAddDTO);
-        return "redirect:/categories"; // След успешно добавяне презареждаме списъка
+        return "redirect:/";
     }
 
     @PostMapping("/delete/category/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return "redirect:/categories"; // След изтриване се връщаме към списъка
+        return "redirect:/add_categories"; // След изтриване се връщаме към списъка
     }
 }
