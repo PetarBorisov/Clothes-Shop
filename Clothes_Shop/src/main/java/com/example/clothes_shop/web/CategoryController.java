@@ -28,8 +28,8 @@ public class CategoryController {
     public ModelAndView showCategories(Model model) {
         List<Category> myCategories = categoryService.getAllCategory();
         model.addAttribute("myCategories", myCategories);
-        model.addAttribute("categoryAddDTO", new CategoryAddDTO()); // За формата за добавяне
-        return new ModelAndView("add_categories"); // Показваме страницата categories.html
+        model.addAttribute("categoryAddDTO", new CategoryAddDTO());
+        return new ModelAndView("add_categories");
     }
 
 
@@ -38,7 +38,6 @@ public class CategoryController {
                               BindingResult result,
                               Model model) {
         if (result.hasErrors()) {
-            // Ако има грешки, презареждаме списъка и връщаме categories.html
             List<Category> myCategories = categoryService.getAllCategory();
             model.addAttribute("myCategories", myCategories);
             return "add_categories";
@@ -51,6 +50,6 @@ public class CategoryController {
     @PostMapping("/delete/category/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return "redirect:/add_categories"; // След изтриване се връщаме към списъка
+        return "redirect:/add_categories";
     }
 }
